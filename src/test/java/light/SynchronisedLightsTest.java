@@ -41,4 +41,12 @@ public class SynchronisedLightsTest {
         Assert.assertEquals(Colour.GREEN, synchronisedTrafficLight.getColour());
     }
 
+    @Test
+    public void shouldUpdateStateFromRedToYellow() {
+        synchronisedTrafficLight.addRedLight(Direction.NORTH);
+        Assert.assertEquals(Colour.RED, synchronisedTrafficLight.getColour());
+        synchronisedTrafficLight.updateStateAndNotify(State.YELLOW_LIGHTS);
+        Assert.assertEquals(Colour.YELLOW, synchronisedTrafficLight.getColour());
+    }
+
 }

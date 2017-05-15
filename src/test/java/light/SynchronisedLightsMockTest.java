@@ -1,23 +1,33 @@
 package light;
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Spy;
+import org.mockito.runners.MockitoJUnitRunner;
 import state.State;
 
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.verifyNoMoreInteractions;
 
+@RunWith(MockitoJUnitRunner.class)
 public class SynchronisedLightsMockTest {
 
+    @Spy
+    @InjectMocks
     private SynchronisedTrafficLight synchronisedTrafficLight;
 
-    @Before
-    public void setUp(){
-        synchronisedTrafficLight = Mockito.spy(new SynchronisedTrafficLight());
-    }
+    @Mock
+    private ScheduledExecutorService scheduledExecutorService;
 
     @Test
     public void shouldNotifySelfWhenUpdatingStateToGreen() {
@@ -50,5 +60,21 @@ public class SynchronisedLightsMockTest {
         synchronisedTrafficLight.updateStateAndNotify(newState);
         verify(synchronisedTrafficLight, times(0)).scheduleColourChange(newState);
         verify(observingLight).scheduleColourChange(newState);
+    }
+
+    @Test
+    public void shouldCallTaskSchedulerWhenChangingColour() {
+        final State newState = State.GREEN_LIGHTS;
+        synchronisedTrafficLight.scheduleColourChange(newState);
+        verify(scheduledExecutorService).schedule(
+                any(Runnable.class), eq(newState.getDuration().getSeconds()), eq(TimeUnit.SECONDS)
+        );
+    }
+
+    @Test
+    public void taskSchedulerShouldShutdownNowWhenStoppingLights() {
+        synchronisedTrafficLight.stopLights();
+        verify(scheduledExecutorService).shutdownNow();
+        verifyNoMoreInteractions(scheduledExecutorService);
     }
 }
