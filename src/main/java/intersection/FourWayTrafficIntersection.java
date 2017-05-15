@@ -26,6 +26,14 @@ public final class FourWayTrafficIntersection extends TrafficIntersection {
         addSynchronisedTrafficLight(eastWestLights);
     }
 
+    public SynchronisedTrafficLight getNorthSouthLights() {
+        return northSouthLights;
+    }
+
+    public SynchronisedTrafficLight getEastWestLights() {
+        return eastWestLights;
+    }
+
     @Override
     public Optional<SynchronisedTrafficLight> getFirstSimulationLight() {
         return Optional.of(northSouthLights);

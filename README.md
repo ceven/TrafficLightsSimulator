@@ -16,13 +16,15 @@ Based on real-life experience, I made the assumption that the intersection works
 The previous assumptions could actually easily been changed with minimal impact on the code base. The current code already gives the flexibility to build and simulate a generic intersection of traffic lights, with any number of lights, and any type of interaction between the lights. It is also possible to customise the duration of a given traffic light colour.
 
 ## Requirements & How to run
-This project requires Java 8. I use gradle (2.6) to manage dependencies, run the simulation and run tests. Please follow the instructions below to download and run the code:
+This project requires Java 8. I use gradle (3.3) to manage dependencies, run the simulation and run tests. Please follow the instructions 
+below to download and run the code:
 
  - Open a terminal prompt and clone this repository in the location of your choice: ```git clone https://github.com/ceven/TrafficLightsSimulator.git```
  - Navigate to the project root
- - Type ```gradle clean build``` to build the project and run unit tests
- - Type ```gradle run``` in a terminal prompt to run the 30-minute simulation. Logs will be printed in the console every time the colour of a light changes
- - Type ```gradle test``` to run the unit tests
+ - Type ```./gradlew clean build``` to build the project and run unit tests
+ - Type ```./gradlew run``` in a terminal prompt to run the 30-minute simulation. Logs will be printed in the console every time the colour
+  of a light changes
+ - Type ```./gradlew test``` to run the unit tests
 
 ## Design and implementation
 The code is organised into 3 main packages:
