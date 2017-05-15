@@ -27,6 +27,10 @@ public class TrafficLight {
         return colour;
     }
 
+    public void setColour(Colour colour) {
+        this.colour = colour;
+    }
+
     public static class TrafficLightBuilder {
 
         private Direction builderDirection;

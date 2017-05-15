@@ -59,7 +59,7 @@ public class SynchronisedTrafficLight {
         LOG.info("[{}]: Changing synchronised lights [{}] colour from [{}] to [{}]",
                 now().format(DATE_TIME_FORMATTER), getDirections(), this.getColour(), newState.getColour());
 
-        this.state = newState;
+        updateStateAndTrafficLightsColour(newState);
         if (newState == State.RED_LIGHTS && !observingLights.isEmpty()) {
             // Schedule a change of state for observing lights
             observingLights.forEach(light -> light.scheduleColourChange(newState));
@@ -67,6 +67,11 @@ public class SynchronisedTrafficLight {
             // Schedule a change of state for this light
             this.scheduleColourChange(newState);
         }
+    }
+
+    private void updateStateAndTrafficLightsColour(final State newState) {
+        this.state = newState;
+        this.trafficLights.forEach( l -> l.setColour(newState.getColour()));
     }
 
     /**
