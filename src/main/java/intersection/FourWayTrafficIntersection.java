@@ -17,6 +17,8 @@ public class FourWayTrafficIntersection extends TrafficIntersection {
         eastWestLights = new SynchronisedTrafficLight();
         eastWestLights.addRedLight(Direction.EAST);
         eastWestLights.addRedLight(Direction.WEST);
+        northSouthLights.addObservingLight(eastWestLights);
+        eastWestLights.addObservingLight(northSouthLights);
         addSynchronisedTrafficLight(northSouthLights);
         addSynchronisedTrafficLight(eastWestLights);
     }

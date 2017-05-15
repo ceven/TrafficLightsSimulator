@@ -1,14 +1,12 @@
 import intersection.FourWayTrafficIntersection;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-public class Main {
+import java.util.concurrent.TimeUnit;
 
-    private static final Logger LOG = LoggerFactory.getLogger(Main.class);
+public class MainSimulation {
 
     public static void main(String[] args) {
-        LOG.info("Starting Traffic Lights Simulation");
         FourWayTrafficIntersection intersection = new FourWayTrafficIntersection();
         intersection.startSimulation();
+        intersection.stopSimulationIn(30, TimeUnit.MINUTES);
     }
 }
