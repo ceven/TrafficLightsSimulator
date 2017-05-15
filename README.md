@@ -41,3 +41,7 @@ I have used the following design patterns:
 I also use asynchronous task scheduling for changing the colour of lights after a certain time.
 
 I am aware that this solution has advantages and limitations. For example, I deliberately made the assumption that lights are responsible for updating their own state, or notifying other lights to update their state. This allows flexibility in adding lights and setting up interactions, but requires to give up control at the intersection level. I am always happy to receive feedback for my design and modelling choices.
+
+## Output
+
+Please open `30 minutes traffic light simulation.txt`, found at the root of the project, to see the output for a 30 minutes long simulation.
