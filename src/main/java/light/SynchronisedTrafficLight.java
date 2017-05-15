@@ -16,6 +16,13 @@ import static java.time.LocalDateTime.now;
 import static light.TrafficLightsFactory.createRedTrafficLight;
 import static util.SchedulerFactory.createTaskScheduler;
 
+/**
+ * A synchronised traffic light (STL) consists of a collection of traffic lights which colour must be updated
+ * at the same time.
+ *
+ * In this implementation, a given STL keeps a reference to other STLs which should turn green as a result of
+ * the current STL turning red. This is a use case of the Observer pattern.
+ */
 public class SynchronisedTrafficLight {
 
     private static final Logger LOG = LoggerFactory.getLogger(SynchronisedTrafficLight.class);
@@ -34,9 +41,16 @@ public class SynchronisedTrafficLight {
         this.trafficLights = newArrayList();
         this.observingLights = newArrayList();
         this.state = State.RED_LIGHTS;
-        taskScheduler = createTaskScheduler();
+        this.taskScheduler = createTaskScheduler();
     }
 
+    /**
+     * Update the current instance state and schedule what to do next, either:
+     *  - Update the current instance state again
+     *  - Update the state of other lights (the lights "observing" this instance)
+     * @param newState the state to immediately update, which is also used to determine
+     *                 which instance should be updated next
+     */
     public void updateStateAndNotify(final State newState) {
         if (newState == null) {
             throw new IllegalArgumentException("State cannot be null");
@@ -55,7 +69,12 @@ public class SynchronisedTrafficLight {
         }
     }
 
-    private void scheduleColourChange(State newState) {
+    /**
+     * Schedule a change of colour for this instance.
+     * @param newState is used to determine which state comes next and how long
+     *                 to wait before triggering the change.
+     */
+    public void scheduleColourChange(State newState) {
         taskScheduler.schedule(() -> this.state.updateState(this),
                 newState.getDuration().getSeconds(), TimeUnit.SECONDS);
     }
@@ -78,6 +97,10 @@ public class SynchronisedTrafficLight {
 
     public List<TrafficLight> getTrafficLights() {
         return Collections.unmodifiableList(trafficLights);
+    }
+
+    public List<SynchronisedTrafficLight> getObservingLights() {
+        return Collections.unmodifiableList(observingLights);
     }
 
     public Colour getColour() {

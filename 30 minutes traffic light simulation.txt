@@ -1,0 +1,22 @@
+objc[11220]: Class JavaLaunchHelper is implemented in both /Library/Java/JavaVirtualMachines/jdk1.8.0_51.jdk/Contents/Home/bin/java (0x10c9ad4c0) and /Library/Java/JavaVirtualMachines/jdk1.8.0_51.jdk/Contents/Home/jre/lib/libinstrument.dylib (0x10ca754e0). One of the two will be used. Which one is undefined.
+[main] INFO intersection.TrafficIntersection - Starting Traffic Lights Simulation
+[main] INFO light.SynchronisedTrafficLight - [2017-05-15 20:19:30]: Changing synchronised lights [NORTH, SOUTH] colour from [RED] to [GREEN]
+[pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:24:00]: Changing synchronised lights [NORTH, SOUTH] colour from [GREEN] to [YELLOW]
+[pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:24:30]: Changing synchronised lights [NORTH, SOUTH] colour from [YELLOW] to [RED]
+[pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:24:30]: Changing synchronised lights [EAST, WEST] colour from [RED] to [GREEN]
+[pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:29:00]: Changing synchronised lights [EAST, WEST] colour from [GREEN] to [YELLOW]
+[pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:29:30]: Changing synchronised lights [EAST, WEST] colour from [YELLOW] to [RED]
+[pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:29:30]: Changing synchronised lights [NORTH, SOUTH] colour from [RED] to [GREEN]
+[pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:34:00]: Changing synchronised lights [NORTH, SOUTH] colour from [GREEN] to [YELLOW]
+[pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:34:30]: Changing synchronised lights [NORTH, SOUTH] colour from [YELLOW] to [RED]
+[pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:34:30]: Changing synchronised lights [EAST, WEST] colour from [RED] to [GREEN]
+[pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:39:00]: Changing synchronised lights [EAST, WEST] colour from [GREEN] to [YELLOW]
+[pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:39:30]: Changing synchronised lights [EAST, WEST] colour from [YELLOW] to [RED]
+[pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:39:30]: Changing synchronised lights [NORTH, SOUTH] colour from [RED] to [GREEN]
+[pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:44:00]: Changing synchronised lights [NORTH, SOUTH] colour from [GREEN] to [YELLOW]
+[pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:44:30]: Changing synchronised lights [NORTH, SOUTH] colour from [YELLOW] to [RED]
+[pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:44:30]: Changing synchronised lights [EAST, WEST] colour from [RED] to [GREEN]
+[pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:49:00]: Changing synchronised lights [EAST, WEST] colour from [GREEN] to [YELLOW]
+[pool-1-thread-1] INFO intersection.TrafficIntersection - Stopping Simulation
+[pool-1-thread-1] INFO light.SynchronisedTrafficLight - Stopping Synchronised lights - direction: [NORTH, SOUTH], colour: [RED]
+[pool-1-thread-1] INFO light.SynchronisedTrafficLight - Stopping Synchronised lights - direction: [EAST, WEST], colour: [YELLOW]

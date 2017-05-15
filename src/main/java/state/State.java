@@ -17,7 +17,7 @@ public enum State {
     }
 
     public void updateState(final SynchronisedTrafficLight synchronisedTrafficLight) {
-        synchronisedTrafficLight.updateStateAndNotify(this.lightsState.getNextState());
+        synchronisedTrafficLight.updateStateAndNotify(getNextState());
     }
 
     public State getNextState(){

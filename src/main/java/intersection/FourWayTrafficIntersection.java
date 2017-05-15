@@ -5,11 +5,14 @@ import light.SynchronisedTrafficLight;
 
 import java.util.Optional;
 
-public class FourWayTrafficIntersection extends TrafficIntersection {
+public final class FourWayTrafficIntersection extends TrafficIntersection {
 
     private SynchronisedTrafficLight northSouthLights;
     private SynchronisedTrafficLight eastWestLights;
 
+    /**
+     * A 4-way traffic intersection is a set of opposite (North-South) and (East-West) traffic lights
+     */
     public FourWayTrafficIntersection() {
         northSouthLights = new SynchronisedTrafficLight();
         northSouthLights.addRedLight(Direction.NORTH);

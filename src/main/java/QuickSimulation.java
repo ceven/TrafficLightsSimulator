@@ -7,6 +7,9 @@ import static state.State.GREEN_LIGHTS;
 import static state.State.RED_LIGHTS;
 import static state.State.YELLOW_LIGHTS;
 
+/**
+ * Use to run a quick simulation over a few seconds only, with lights changing colour more often
+ */
 public class QuickSimulation {
 
     public static void main(String[] args) {

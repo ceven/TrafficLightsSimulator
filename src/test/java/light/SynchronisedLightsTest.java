@@ -3,6 +3,7 @@ package light;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import state.State;
 
 public class SynchronisedLightsTest {
 
@@ -26,4 +27,18 @@ public class SynchronisedLightsTest {
         Assert.assertEquals(Direction.NORTH, light.getDirection());
         Assert.assertEquals(Colour.RED, light.getColour());
     }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void shouldNotUpdateStateWhenStateIsNull() {
+        synchronisedTrafficLight.updateStateAndNotify(null);
+    }
+
+    @Test
+    public void shouldUpdateStateFromRedToGreen() {
+        synchronisedTrafficLight.addRedLight(Direction.NORTH);
+        Assert.assertEquals(Colour.RED, synchronisedTrafficLight.getColour());
+        synchronisedTrafficLight.updateStateAndNotify(State.GREEN_LIGHTS);
+        Assert.assertEquals(Colour.GREEN, synchronisedTrafficLight.getColour());
+    }
+
 }
