@@ -33,14 +33,14 @@ public class SynchronisedLightsMockTest {
     public void shouldNotifySelfWhenUpdatingStateToGreen() {
         State newState = State.GREEN_LIGHTS;
         synchronisedTrafficLight.updateStateAndNotify(newState);
-        verify(synchronisedTrafficLight).scheduleColourChange(newState);
+        verify(synchronisedTrafficLight).scheduleColourChange(newState.getDuration());
     }
 
     @Test
     public void shouldNotifySelfWhenUpdatingStateToYellow() {
         State newState = State.YELLOW_LIGHTS;
         synchronisedTrafficLight.updateStateAndNotify(newState);
-        verify(synchronisedTrafficLight).scheduleColourChange(newState);
+        verify(synchronisedTrafficLight).scheduleColourChange(newState.getDuration());
     }
 
     @Test
@@ -48,7 +48,7 @@ public class SynchronisedLightsMockTest {
         Assert.assertEquals(0,synchronisedTrafficLight.getObservingLights().size());
         State newState = State.RED_LIGHTS;
         synchronisedTrafficLight.updateStateAndNotify(newState);
-        verify(synchronisedTrafficLight).scheduleColourChange(newState);
+        verify(synchronisedTrafficLight).scheduleColourChange(newState.getDuration());
     }
 
     @Test
@@ -58,14 +58,14 @@ public class SynchronisedLightsMockTest {
         Assert.assertEquals(1,synchronisedTrafficLight.getObservingLights().size());
         State newState = State.RED_LIGHTS;
         synchronisedTrafficLight.updateStateAndNotify(newState);
-        verify(synchronisedTrafficLight, times(0)).scheduleColourChange(newState);
-        verify(observingLight).scheduleColourChange(newState);
+        verify(synchronisedTrafficLight, times(0)).scheduleColourChange(newState.getDuration());
+        verify(observingLight).scheduleColourChange(newState.getDuration());
     }
 
     @Test
     public void shouldCallTaskSchedulerWhenChangingColour() {
         final State newState = State.GREEN_LIGHTS;
-        synchronisedTrafficLight.scheduleColourChange(newState);
+        synchronisedTrafficLight.scheduleColourChange(newState.getDuration());
         verify(scheduledExecutorService).schedule(
                 any(Runnable.class), eq(newState.getDuration().getSeconds()), eq(TimeUnit.SECONDS)
         );

@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import state.State;
 
+import java.time.Duration;
 import java.time.format.DateTimeFormatter;
 import java.util.Collections;
 import java.util.List;
@@ -62,10 +63,10 @@ public class SynchronisedTrafficLight {
         updateStateAndTrafficLightsColour(newState);
         if (newState == State.RED_LIGHTS && !observingLights.isEmpty()) {
             // Schedule a change of state for observing lights
-            observingLights.forEach(light -> light.scheduleColourChange(newState));
+            observingLights.forEach(light -> light.scheduleColourChange(newState.getDuration()));
         } else {
             // Schedule a change of state for this light
-            this.scheduleColourChange(newState);
+            this.scheduleColourChange(newState.getDuration());
         }
     }
 
@@ -76,12 +77,11 @@ public class SynchronisedTrafficLight {
 
     /**
      * Schedule a change of colour for this instance.
-     * @param newState is used to determine which state comes next and how long
-     *                 to wait before triggering the change.
+     * @param duration is used to determine how long to wait before triggering the change.
      */
-    public void scheduleColourChange(State newState) {
+    public void scheduleColourChange(final Duration duration) {
         taskScheduler.schedule(() -> this.state.updateState(this),
-                newState.getDuration().getSeconds(), TimeUnit.SECONDS);
+                duration.getSeconds(), TimeUnit.SECONDS);
     }
 
     public TrafficLight addRedLight(final Direction direction) {
