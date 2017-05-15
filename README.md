@@ -1,4 +1,7 @@
-# TrafficLightsSimulation
+# Traffic Lights Simulation
+[![Build Status](https://travis-ci.org/ceven/TrafficLightsSimulator.svg?branch=master)](https://travis-ci.org/ceven/TrafficLightsSimulator)
+
+
 This project allows to simulate traffic lights changing colour over time at a given intersection. 
 
 ## Problem
