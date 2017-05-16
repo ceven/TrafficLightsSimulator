@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static util.SchedulerFactory.createTaskScheduler;
+import static util.SchedulerFactory.newIfNullOrShutdown;
 
 /**
  * A general model for a traffic intersection, which may contain as many lights as desired.
@@ -63,6 +64,7 @@ public class TrafficIntersection {
      * Schedule to stop the entire simulation after a given time (asynchronous call)
      */
     public void stopSimulationIn(final int time, final TimeUnit unit) {
+        scheduledExecutorService = newIfNullOrShutdown(scheduledExecutorService);
         scheduledExecutorService.schedule(this::stopSimulation, time, unit);
     }
 
@@ -74,5 +76,7 @@ public class TrafficIntersection {
         LOG.info("Stopping Simulation");
         synchronisedTrafficLights.forEach(SynchronisedTrafficLight::stopLights);
         scheduledExecutorService.shutdownNow();
+        synchronisedTrafficLights.forEach(l -> l.updateStateAndTrafficLightsColour(State.RED_LIGHTS));
     }
+
 }

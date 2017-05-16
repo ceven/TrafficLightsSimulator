@@ -16,6 +16,7 @@ import static com.google.common.collect.Lists.newArrayList;
 import static java.time.LocalDateTime.now;
 import static light.TrafficLightsFactory.createRedTrafficLight;
 import static util.SchedulerFactory.createTaskScheduler;
+import static util.SchedulerFactory.newIfNullOrShutdown;
 
 /**
  * A synchronised traffic light (STL) consists of a collection of traffic lights which colour must be updated
@@ -70,7 +71,7 @@ public class SynchronisedTrafficLight {
         }
     }
 
-    private void updateStateAndTrafficLightsColour(final State newState) {
+    public void updateStateAndTrafficLightsColour(final State newState) {
         this.state = newState;
         this.trafficLights.forEach( l -> l.setColour(newState.getColour()));
     }
@@ -80,6 +81,7 @@ public class SynchronisedTrafficLight {
      * @param duration is used to determine how long to wait before triggering the change.
      */
     public void scheduleColourChange(final Duration duration) {
+        taskScheduler = newIfNullOrShutdown(taskScheduler);
         taskScheduler.schedule(() -> this.state.updateState(this),
                 duration.getSeconds(), TimeUnit.SECONDS);
     }

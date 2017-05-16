@@ -1,9 +1,12 @@
 package light;
 
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleObjectProperty;
+
 public final class TrafficLight {
 
     private final Direction direction;
-    private Colour colour;
+    private Property<Colour> colour;
 
     private TrafficLight(TrafficLightBuilder builder) {
         if (builder == null) {
@@ -16,19 +19,23 @@ public final class TrafficLight {
             throw new IllegalArgumentException("Colour cannot be null");
         }
         this.direction = builder.builderDirection;
-        this.colour = builder.builderColour;
+        this.colour = new SimpleObjectProperty<>(builder.builderColour);
     }
 
     public Direction getDirection() {
         return direction;
     }
 
-    public Colour getColour() {
+    public Property<Colour> getColourProperty() {
         return colour;
     }
 
+    public Colour getColour() {
+        return colour.getValue();
+    }
+
     public void setColour(Colour colour) {
-        this.colour = colour;
+        this.colour.setValue(colour);
     }
 
     public static class TrafficLightBuilder {

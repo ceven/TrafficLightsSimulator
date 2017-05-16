@@ -13,4 +13,8 @@ public final class SchedulerFactory {
         return Executors.newSingleThreadScheduledExecutor();
     }
 
+    public static ScheduledExecutorService newIfNullOrShutdown(final ScheduledExecutorService executorService) {
+        return executorService == null || executorService.isShutdown() ? createTaskScheduler() : executorService;
+    }
+
 }
