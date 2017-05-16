@@ -3,7 +3,9 @@ import intersection.FourWayTrafficIntersection;
 import java.util.concurrent.TimeUnit;
 
 /**
- * The class used to run the traffic simulation as per the problem description
+ * Use this class to run the traffic simulation as per the problem description
+ * To modify the lights duration, call `setDuration(...)` on the corresponding State enum prior to
+ * starting the simulation: e.g. GREEN_LIGHTS.setDuration(5, ChronoUnit.SECONDS);
  */
 public class MainSimulation {
 

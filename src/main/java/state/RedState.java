@@ -6,7 +6,7 @@ import java.time.Duration;
 import java.time.temporal.ChronoUnit;
 import java.time.temporal.TemporalUnit;
 
-public class RedState implements ILightsState {
+public final class RedState implements ILightsState {
 
     private static final long DEFAULT_DURATION_SECONDS = 0;
     private Duration duration;

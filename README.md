@@ -27,7 +27,6 @@ below to download and run the code:
  - Type ```./gradlew clean build``` to build the project and run unit tests
  - Type ```./gradlew run``` in a terminal prompt to run the 30-minute simulation. Logs will be printed in the console every time the colour
   of a light changes
- - Type ```./gradlew test``` to run the unit tests
 
 ## Design and implementation
 The code is organised into 3 main packages:
@@ -36,7 +35,8 @@ The code is organised into 3 main packages:
  - `state` regroups the different states that a set of synchronous lights can take: either green, yellow or red.
  - `intersection` contains a generic intersection model (TrafficIntersection) and the intersection model which is the focus of this problem (FourWayTrafficIntersection).
 
-The simulation is run using either `MainSimulation` or `QuickSimulation` (the latter class allows to customise the colour duration).
+The simulation is run using `MainSimulation`. Default lights duration are used, however they can be manually configured by calling 
+`setDuration(...)` prior to running the simulation, e.g. `GREEN_LIGHTS.setDuration(5, ChronoUnit.SECONDS);`
 
 I have used the following design patterns:
  - `Builder` to create traffic lights.
@@ -45,8 +45,32 @@ I have used the following design patterns:
 
 I also use asynchronous task scheduling for changing the colour of lights after a certain time.
 
-I am aware that this solution has advantages and limitations. For example, I deliberately made the assumption that lights are responsible for updating their own state, or notifying other lights to update their state. This allows flexibility in adding lights and setting up interactions, but requires to give up control at the intersection level. I am always happy to receive feedback for my design and modelling choices.
+I am aware that this solution has advantages and limitations. For example, I deliberately made the assumption that lights are responsible 
+for updating their own state, or notifying other lights to update their state. This allows flexibility in adding lights and setting up 
+interactions, but requires to give up control at the intersection level. I am always happy to receive feedback for and/or talk about my 
+design and modelling choices.
 
 ## Output
 
-Please open `30 minutes traffic light simulation.txt`, found at the root of the project, to see the output for a 30 minutes long simulation.
+    [main] INFO intersection.TrafficIntersection - Starting Traffic Lights Simulation
+    [main] INFO light.SynchronisedTrafficLight - [2017-05-15 20:19:30]: Changing synchronised lights [NORTH, SOUTH] colour from [RED] to [GREEN]
+    [pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:24:00]: Changing synchronised lights [NORTH, SOUTH] colour from [GREEN] to [YELLOW]
+    [pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:24:30]: Changing synchronised lights [NORTH, SOUTH] colour from [YELLOW] to [RED]
+    [pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:24:30]: Changing synchronised lights [EAST, WEST] colour from [RED] to [GREEN]
+    [pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:29:00]: Changing synchronised lights [EAST, WEST] colour from [GREEN] to [YELLOW]
+    [pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:29:30]: Changing synchronised lights [EAST, WEST] colour from [YELLOW] to [RED]
+    [pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:29:30]: Changing synchronised lights [NORTH, SOUTH] colour from [RED] to [GREEN]
+    [pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:34:00]: Changing synchronised lights [NORTH, SOUTH] colour from [GREEN] to [YELLOW]
+    [pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:34:30]: Changing synchronised lights [NORTH, SOUTH] colour from [YELLOW] to [RED]
+    [pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:34:30]: Changing synchronised lights [EAST, WEST] colour from [RED] to [GREEN]
+    [pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:39:00]: Changing synchronised lights [EAST, WEST] colour from [GREEN] to [YELLOW]
+    [pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:39:30]: Changing synchronised lights [EAST, WEST] colour from [YELLOW] to [RED]
+    [pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:39:30]: Changing synchronised lights [NORTH, SOUTH] colour from [RED] to [GREEN]
+    [pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:44:00]: Changing synchronised lights [NORTH, SOUTH] colour from [GREEN] to [YELLOW]
+    [pool-2-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:44:30]: Changing synchronised lights [NORTH, SOUTH] colour from [YELLOW] to [RED]
+    [pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:44:30]: Changing synchronised lights [EAST, WEST] colour from [RED] to [GREEN]
+    [pool-3-thread-1] INFO light.SynchronisedTrafficLight - [2017-05-15 20:49:00]: Changing synchronised lights [EAST, WEST] colour from [GREEN] to [YELLOW]
+    [pool-1-thread-1] INFO intersection.TrafficIntersection - Stopping Simulation
+    [pool-1-thread-1] INFO light.SynchronisedTrafficLight - Stopping Synchronised lights - direction: [NORTH, SOUTH], colour: [RED]
+    [pool-1-thread-1] INFO light.SynchronisedTrafficLight - Stopping Synchronised lights - direction: [EAST, WEST], colour: [YELLOW]
+    

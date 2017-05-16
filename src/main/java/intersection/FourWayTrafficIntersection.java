@@ -3,7 +3,11 @@ package intersection;
 import light.Direction;
 import light.SynchronisedTrafficLight;
 
+import java.util.List;
 import java.util.Optional;
+
+import static com.google.common.collect.Lists.newArrayList;
+import static light.TrafficLightsFactory.createSyncTrafficLight;
 
 public final class FourWayTrafficIntersection extends TrafficIntersection {
 
@@ -14,16 +18,16 @@ public final class FourWayTrafficIntersection extends TrafficIntersection {
      * A 4-way traffic intersection is a set of opposite (North-South) and (East-West) traffic lights
      */
     public FourWayTrafficIntersection() {
-        northSouthLights = new SynchronisedTrafficLight();
-        northSouthLights.addRedLight(Direction.NORTH);
-        northSouthLights.addRedLight(Direction.SOUTH);
-        eastWestLights = new SynchronisedTrafficLight();
-        eastWestLights.addRedLight(Direction.EAST);
-        eastWestLights.addRedLight(Direction.WEST);
+        northSouthLights = createAndAddSyncTrafficLight(newArrayList(Direction.NORTH, Direction.SOUTH));
+        eastWestLights = createAndAddSyncTrafficLight(newArrayList(Direction.EAST, Direction.WEST));
         northSouthLights.addObservingLight(eastWestLights);
         eastWestLights.addObservingLight(northSouthLights);
-        addSynchronisedTrafficLight(northSouthLights);
-        addSynchronisedTrafficLight(eastWestLights);
+    }
+
+    private SynchronisedTrafficLight createAndAddSyncTrafficLight(final List<Direction> lightsDirections) {
+        SynchronisedTrafficLight synchronisedTrafficLight = createSyncTrafficLight(lightsDirections);
+        addSynchronisedTrafficLight(synchronisedTrafficLight);
+        return synchronisedTrafficLight;
     }
 
     public SynchronisedTrafficLight getNorthSouthLights() {

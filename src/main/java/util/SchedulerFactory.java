@@ -3,10 +3,14 @@ package util;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
-public class SchedulerFactory {
+public final class SchedulerFactory {
+
+    private SchedulerFactory() {
+
+    }
 
     public static ScheduledExecutorService createTaskScheduler() {
-        return Executors.newScheduledThreadPool(1);
+        return Executors.newSingleThreadScheduledExecutor();
     }
 
 }

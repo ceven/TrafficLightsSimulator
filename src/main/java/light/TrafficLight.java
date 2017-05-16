@@ -1,6 +1,6 @@
 package light;
 
-public class TrafficLight {
+public final class TrafficLight {
 
     private final Direction direction;
     private Colour colour;
